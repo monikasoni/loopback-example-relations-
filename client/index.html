@@ -21,16 +21,21 @@ window.addEventListener('load', function() {
 
     var queryInput = el.querySelector('[name="queryInput"]');
     var edgeOutput = el.querySelector('[name="edgeOutput"]');
+    var edgeHeaders = el.querySelector('[name="edgeHeaders"]');
     edgeOutput.value = "";
+    edgeHeaders.value = "";
     var sendToEdgeButton = el.querySelector('[name=sendToEdgeButton]');
     var origOutput = el.querySelector('[name="origOutput"]');
+    var origHeaders = el.querySelector('[name="origHeaders"]');
     origOutput.value = "";
+    origHeaders.value = "";
     var sendToOrigButton = el.querySelector('[name=sendToOrigButton]');
   
     sendToOrigButton.addEventListener('click', function() {
       origOutput.classList.remove('success');
 
       var xhr = new XMLHttpRequest();
+      const before = window.performance.now();
       xhr.open('POST', window.location.protocol + "//" + window.location.host + "/graphql");
       xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -42,7 +47,7 @@ window.addEventListener('load', function() {
           origOutput.value = pretty;
           origOutput.classList.add('success');
         }
-
+        origHeaders.value = "Time elapsed: " +  (window.performance.now() - before);
       });
       xhr.send("{\"query\" : " + JSON.stringify(queryInput.value) + "}");
     });
@@ -51,6 +56,7 @@ window.addEventListener('load', function() {
       edgeOutput.classList.remove('success');
 
       var xhr = new XMLHttpRequest();
+      const before = window.performance.now();
       xhr.open('POST', window.location.protocol + "//" + window.location.host + "/graphql");
       xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -62,6 +68,9 @@ window.addEventListener('load', function() {
           edgeOutput.value = pretty;
           edgeOutput.classList.add('success');
         }
+        edgeHeaders.value = "Time elapsed : " +  (window.performance.now() - before);
+        edgeHeaders.value += "\nCache Key : " + xhr.getResponseHeader("content-type")
+        edgeHeaders.value += "\nCache Status : " + xhr.getResponseHeader("content-type")
 
       });
       xhr.send("{\"query\" : " + JSON.stringify(queryInput.value) + "}");
@@ -93,19 +102,18 @@ window.addEventListener('load', function() {
     <div class="input">
       <div class="sample-title">Query+Variables</div>
       <textarea name="queryInput" rows="15">
-{
-    Post(id: 1) {
-        id
-        title
-        views
-        User {
-            name
-        }
-        Comments {
-            date
-            body
-        }
+query {
+  product(id:10)
+  {
+    id
+    name
+    brand {
+      name
     }
+    category {
+      name
+    }
+  }
 }
       </textarea>
 
@@ -135,6 +143,63 @@ window.addEventListener('load', function() {
     <div class="output" >
       <textarea name="edgeHeaders" rows="5"></textarea>
 				<button name="sendToEdgeButton">Send To Edge</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="main-body-container">
+
+  <div name="sample" class="main">
+
+    <div class="example-title">
+      Id 1
+    </div>
+
+    <div class="input">
+      <div class="sample-title">Query+Variables</div>
+      <textarea name="queryInput" rows="15">
+query {
+  product(id:10)
+  {
+    name
+    id
+    category {
+      name
+    }
+    brand {
+      name
+    }
+  }
+}
+      </textarea>
+
+    </div>
+
+
+    <div class="output" >
+      <div class="sample-title">Origin Response</div>
+      <textarea name="origOutput" rows="15"></textarea>
+    </div>
+
+
+    <div class="output" >
+      <div class="sample-title">Edge Response</div>
+      <textarea name="edgeOutput" rows="15"></textarea>
+    </div>
+
+    <div class="input" >
+      <textarea name="varibaleInput" rows="5"></textarea>
+    </div>
+
+    <div class="output" >
+      <textarea name="origHeaders" rows="5"></textarea>
+        <button name="sendToOrigButton">Send To Orig</button>
+    </div>
+
+    <div class="output" >
+      <textarea name="edgeHeaders" rows="5"></textarea>
+        <button name="sendToEdgeButton">Send To Edge</button>
     </div>
   </div>
 </div>
