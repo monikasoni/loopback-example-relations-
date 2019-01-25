@@ -12,6 +12,7 @@
     "test": "mocha -R spec test"
   },
   "dependencies": {
+    "apollo-server-express": "^2.3.1",
     "async": "^2.5.0",
     "compression": "^1.7.0",
     "cors": "^2.8.1",

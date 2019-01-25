@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>GraphQL Playground</title>
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/default.css">
+  <link rel="stylesheet" href="css/graphiql.css">
+  <script src="css/graphiql.js" charset="utf-8"></script>
+  <script src="css/highlight.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+  <body>
+    <div class="container">
+      <script>
+
+window.addEventListener('load', function() {
+
+  [].slice.call(document.querySelectorAll('[name="sample"]')).forEach(function(el) {
+
+    var queryInput = el.querySelector('[name="queryInput"]');
+    var edgeOutput = el.querySelector('[name="edgeOutput"]');
+    edgeOutput.value = "";
+    var sendToEdgeButton = el.querySelector('[name=sendToEdgeButton]');
+    var origOutput = el.querySelector('[name="origOutput"]');
+    origOutput.value = "";
+    var sendToOrigButton = el.querySelector('[name=sendToOrigButton]');
+  
+    sendToOrigButton.addEventListener('click', function() {
+      origOutput.classList.remove('success');
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', window.location.protocol + "//" + window.location.host + "/graphql");
+      xhr.setRequestHeader("Content-Type", "application/json");
+
+      xhr.addEventListener('readystatechange', function() {
+
+        if (xhr.readyState === 4) {
+          var obj = JSON.parse(xhr.responseText);
+          var pretty = JSON.stringify(obj, undefined, 4);
+          origOutput.value = pretty;
+          origOutput.classList.add('success');
+        }
+
+      });
+      xhr.send("{\"query\" : " + JSON.stringify(queryInput.value) + "}");
+    });
+
+    sendToEdgeButton.addEventListener('click', function() {
+      edgeOutput.classList.remove('success');
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', window.location.protocol + "//" + window.location.host + "/graphql");
+      xhr.setRequestHeader("Content-Type", "application/json");
+
+      xhr.addEventListener('readystatechange', function() {
+
+        if (xhr.readyState === 4) {
+          var obj = JSON.parse(xhr.responseText);
+          var pretty = JSON.stringify(obj, undefined, 4);
+          edgeOutput.value = pretty;
+          edgeOutput.classList.add('success');
+        }
+
+      });
+      xhr.send("{\"query\" : " + JSON.stringify(queryInput.value) + "}");
+    });
+
+    queryInput.addEventListener('focus', function() {
+      edgeOutput.classList.remove('success');
+      origOutput.classList.remove('success');
+    });
+
+  });
+
+});
+
+</script>
+
+<div class="top-header">
+  <h5>GraphQL Playground</h5>
+</div>
+
+<div class="main-body-container">
+
+  <div name="sample" class="main">
+
+    <div class="example-title">
+      Id 1
+    </div>
+
+    <div class="input">
+      <div class="sample-title">Query+Variables</div>
+      <textarea name="queryInput" rows="15">
+{
+    Post(id: 1) {
+        id
+        title
+        views
+        User {
+            name
+        }
+        Comments {
+            date
+            body
+        }
+    }
+}
+      </textarea>
+
+    </div>
+
+
+    <div class="output" >
+      <div class="sample-title">Origin Response</div>
+      <textarea name="origOutput" rows="15"></textarea>
+    </div>
+
+
+    <div class="output" >
+      <div class="sample-title">Edge Response</div>
+      <textarea name="edgeOutput" rows="15"></textarea>
+    </div>
+
+    <div class="input" >
+      <textarea name="varibaleInput" rows="5"></textarea>
+    </div>
+
+    <div class="output" >
+      <textarea name="origHeaders" rows="5"></textarea>
+				<button name="sendToOrigButton">Send To Orig</button>
+    </div>
+
+    <div class="output" >
+      <textarea name="edgeHeaders" rows="5"></textarea>
+				<button name="sendToEdgeButton">Send To Edge</button>
+    </div>
+  </div>
+</div>
+
+
+</body></html>
