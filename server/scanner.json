@@ -1,0 +1,33 @@
+    },
+    {
+        "id": 261196,
+        "device": "Sony ICF-SC1",
+        "model": "icf-sc1",
+        "brand": "sony",
+        "category": "scanner",
+        "userguide": "https:\/\/user.guide\/index.php?from=261196"
+    },
+    {
+        "id": 261197,
+        "device": "Sony SFM1",
+        "model": "sfm1",
+        "brand": "sony",
+        "category": "scanner",
+        "userguide": "https:\/\/user.guide\/index.php?from=261197"
+    },
+    {
+        "id": 261298,
+        "device": "Canon Imageformula Scanfront 300p Cac\/Piv Network Scanner 4575B007",
+        "model": "canon_imageformula_scanfront_300p_cac_piv_network_scanner_4575b007",
+        "brand": "canon",
+        "category": "scanner",
+        "userguide": "https:\/\/user.guide\/index.php?from=261298"
+    },
+    {
+        "id": 261299,
+        "device": "Canon Scanner 101",
+        "model": "canon_scanner_101",
+        "brand": "canon",
+        "category": "scanner",
+        "userguide": "https:\/\/user.guide\/index.php?from=261299"
+    },

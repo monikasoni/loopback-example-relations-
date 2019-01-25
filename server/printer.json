@@ -1,0 +1,57 @@
+    },
+    {
+        "id": 234934,
+        "device": "Sony DPP-M55",
+        "model": "dpp-m55",
+        "brand": "sony",
+        "category": "printer",
+        "userguide": "https:\/\/user.guide\/index.php?from=234934"
+    },
+    {
+        "id": 234935,
+        "device": "Sony LPR-1000MD",
+        "model": "lpr-1000md",
+        "brand": "sony",
+        "category": "printer",
+        "userguide": "https:\/\/user.guide\/index.php?from=234935"
+    },
+    {
+        "id": 235046,
+        "device": "Apple LQ",
+        "model": "lq",
+        "brand": "apple",
+        "category": "printer",
+        "userguide": "https:\/\/user.guide\/index.php?from=235046"
+    },
+    {
+        "id": 235047,
+        "device": "Apple B2867757",
+        "model": "b2867757",
+        "brand": "apple",
+        "category": "printer",
+        "userguide": "https:\/\/user.guide\/index.php?from=235047"
+    },
+    {
+        "id": 235048,
+        "device": "Apple 6500",
+        "model": "6500",
+        "brand": "apple",
+        "category": "printer",
+        "userguide": "https:\/\/user.guide\/index.php?from=235048"
+    },
+    {
+        "id": 236174,
+        "device": "Epson COLOR 850",
+        "model": "color_850",
+        "brand": "epson",
+        "category": "printer",
+        "userguide": "https:\/\/user.guide\/index.php?from=236174"
+    },
+    {
+        "id": 236175,
+        "device": "Epson COLOR 860",
+        "model": "color_860",
+        "brand": "epson",
+        "category": "printer",
+        "userguide": "https:\/\/user.guide\/index.php?from=236175"
+    },

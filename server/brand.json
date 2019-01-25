@@ -1,0 +1,52 @@
+[
+	{
+	name:"acer",
+	products:["23"],
+	id:101
+	},
+	{
+	name:"apple",
+	products:["7", "8", "9", "18", "19", "20", "21"],
+	id:102
+	},
+	{
+	name:"canon",
+	products:["3", "4"],
+	id:103
+	},
+	{
+	name:"dell",
+	products:["24"],
+	id:104
+	},
+	{
+	name:"epson",
+	products:["10", "11"],
+	id:105
+	},
+	{
+	name:"ibm",
+	products:["25", "26"],
+	id:106
+	},
+	{
+	name:"lenovo",
+	products:["27", "28", "29"],
+	id:107
+	},
+	{
+	name:"philips",
+	products:["13", "14"],
+	id:108
+	},
+	{
+	name:"samsung",
+	products:["15", "16", "17"],
+	id:109
+	},
+	{
+	name:"sony",
+	products:["1", "2", "5", "6","12", "22"],
+	id:110
+	}
+]

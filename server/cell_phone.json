@@ -1,0 +1,80 @@
+    {
+        "id": 48354,
+        "device": "Sony Mobile Xperia tipo ST21A",
+        "model": "sony_mobile_xperia_tipo_st21a",
+        "brand": "sony",
+        "category": "cell_phone",
+        "userguide": "https:\/\/user.guide\/index.php?from=48354"
+    },
+    {
+        "id": 48507,
+        "device": "Philips CTS900",
+        "model": "cts900",
+        "brand": "philips",
+        "category": "cell_phone",
+        "userguide": "https:\/\/user.guide\/index.php?from=48507"
+    },
+    {
+        "id": 48508,
+        "device": "Philips D-44867",
+        "model": "d-44867",
+        "brand": "philips",
+        "category": "cell_phone",
+        "userguide": "https:\/\/user.guide\/index.php?from=48508"
+    },
+    {
+        "id": 48639,
+        "device": "Samsung CURVE 9330",
+        "model": "curve_9330",
+        "brand": "samsung",
+        "category": "cell_phone",
+        "userguide": "https:\/\/user.guide\/index.php?from=48639"
+    },
+    {
+        "id": 48640,
+        "device": "Samsung DFX-5000",
+        "model": "dfx-5000",
+        "brand": "samsung",
+        "category": "cell_phone",
+        "userguide": "https:\/\/user.guide\/index.php?from=48640"
+    },
+    {
+        "id": 48641,
+        "device": "Samsung DM-S105",
+        "model": "dm-s105",
+        "brand": "samsung",
+        "category": "cell_phone",
+        "userguide": "https:\/\/user.guide\/index.php?from=48641"
+    },
+    {
+        "id": 49342,
+        "device": "Apple iPhone 4S A1431",
+        "model": "iphone_4s_a1431",
+        "brand": "apple",
+        "category": "cell_phone",
+        "userguide": "https:\/\/user.guide\/index.php?from=49342"
+    },
+    {
+        "id": 49343,
+        "device": "Apple iPhone 4s MD257LL\/A",
+        "model": "iphone_4s_md257ll_a",
+        "brand": "apple",
+        "category": "cell_phone",
+        "userguide": "https:\/\/user.guide\/index.php?from=49343"
+    },
+    {
+        "id": 49344,
+        "device": "Apple iPhone 4 A1332",
+        "model": "iphone_4_a1332",
+        "brand": "apple",
+        "category": "cell_phone",
+        "userguide": "https:\/\/user.guide\/index.php?from=49344"
+    },
+    {
+        "id": 49345,
+        "device": "Apple iPhone 4 MC536LL\/A",
+        "model": "iphone_4_mc536ll_a",
+        "brand": "apple",
+        "category": "cell_phone",
+        "userguide": "https:\/\/user.guide\/index.php?from=49345"
+    },

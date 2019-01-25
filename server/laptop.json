@@ -1,0 +1,64 @@
+    {
+        "id": 158711,
+        "device": "Sony CG-FX120K",
+        "model": "cg-fx120k",
+        "brand": "sony",
+        "category": "laptop",
+        "userguide": "https:\/\/user.guide\/index.php?from=158711"
+    },
+    {
+        "id": 159672,
+        "device": "Acer TravelMate 800 Series",
+        "model": "travelmate_800_series",
+        "brand": "acer",
+        "category": "laptop",
+        "userguide": "https:\/\/user.guide\/index.php?from=159672"
+    },
+    {
+        "id": 160773,
+        "device": "Dell Laptop 7537",
+        "model": "dell_laptop_7537",
+        "brand": "dell",
+        "category": "laptop",
+        "userguide": "https:\/\/user.guide\/index.php?from=160773"
+    },
+    {
+        "id": 162774,
+        "device": "IBM THINKPAD X32",
+        "model": "thinkpad_x32",
+        "brand": "ibm",
+        "category": "laptop",
+        "userguide": "https:\/\/user.guide\/index.php?from=162774"
+    },
+    {
+        "id": 162775,
+        "device": "IBM THINKVANTAGE T60",
+        "model": "thinkvantage_t60",
+        "brand": "ibm",
+        "category": "laptop",
+        "userguide": "https:\/\/user.guide\/index.php?from=162775"
+    },
+    {
+        "id": 163176,
+        "device": "Lenovo Flex 15 15.6 59387570",
+        "model": "lenovo_flex_15_15_6_59387570",
+        "brand": "lenovo",
+        "category": "laptop",
+        "userguide": "https:\/\/user.guide\/index.php?from=163176"
+    },
+    {
+        "id": 163177,
+        "device": "Lenovo G500 59373044",
+        "model": "lenovo_g500_59373044",
+        "brand": "lenovo",
+        "category": "laptop",
+        "userguide": "https:\/\/user.guide\/index.php?from=163177"
+    },
+    {
+        "id": 165738,
+        "device": "Lenovo THINKPAD W510",
+        "model": "thinkpad_w510",
+        "brand": "lenovo",
+        "category": "laptop",
+        "userguide": "https:\/\/user.guide\/index.php?from=165738"
+    },
