@@ -421,7 +421,7 @@ const resolvers = {
        let products = db.products.filter((product) => {
           return (product.brand == brandObj[0].id)
 				});
-		   return products;
+		   return products.map(product => new Product(product));
 		},
 		productsOfCategory: (parent, { category }) => {
 			 let catObj = db.categories.filter((cat) => { 
@@ -430,7 +430,7 @@ const resolvers = {
        let products = db.products.filter((product) => {
           return (product.category == catObj[0].id)
 				});
-		   return products;
+		   return products.map(product => new Product(product));
 		},
 		productsOfBrandAndCategory: (parent, { category, brand }) => {
 			 let brandObj = db.brands.filter((br) => { 
@@ -442,7 +442,7 @@ const resolvers = {
        let products = db.products.filter((product) => {
           return (product.brand == brandObj[0].id && product.category == catObj[0].id)
 				});
-		   return products;
+		   return products.map(product => new Product(product));
 		},
 		brands : () => {
 			return db
