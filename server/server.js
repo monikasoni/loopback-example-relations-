@@ -415,13 +415,34 @@ const resolvers = {
 				.map(product => new Product(product));
 		},
 		productsOfBrand: (parent, { brand }) => {
-			return db.products.filter(product => product.brand.name === brand);
+			 let brandObj = db.brands.filter((br) => { 
+					 return (br.name == brand); 
+				});
+       let products = db.products.filter((product) => {
+          return (product.brand == brandObj[0].id)
+				});
+		   return products;
 		},
 		productsOfCategory: (parent, { category }) => {
-			return db.products.filter(product => product.category.name === category);
+			 let catObj = db.categories.filter((cat) => { 
+					 return (cat.name == category); 
+				});
+       let products = db.products.filter((product) => {
+          return (product.category == catObj[0].id)
+				});
+		   return products;
 		},
 		productsOfBrandAndCategory: (parent, { category, brand }) => {
-      return db.products.filter(product => product.brand === brand).filter(product => product.category === category);
+			 let brandObj = db.brands.filter((br) => { 
+					 return (br.name == brand); 
+				});
+			 let catObj = db.categories.filter((cat) => { 
+					 return (cat.name == category); 
+				});
+       let products = db.products.filter((product) => {
+          return (product.brand == brandObj[0].id && product.category == catObj[0].id)
+				});
+		   return products;
 		},
 		brands : () => {
 			return db

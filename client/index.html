@@ -5,10 +5,8 @@
 
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/default.css">
-  <link rel="stylesheet" href="css/graphiql.css">
-  <script src="css/graphiql.js" charset="utf-8"></script>
-  <script src="css/highlight.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="css/codemirror.css">
+  <script src="css/codemirror.js"></script>
 </head>
 
   <body>
@@ -19,18 +17,37 @@ window.addEventListener('load', function() {
 
   [].slice.call(document.querySelectorAll('[name="sample"]')).forEach(function(el) {
 
+    var title = el.querySelector('[name="title"]');
+    title.addEventListener('click', function() {
+      if (el.querySelector('[name="toggle"]').style.display == "none")
+      {
+				el.querySelector('[name="toggle"]').style.display = "block";
+      }
+      else
+      {
+				el.querySelector('[name="toggle"]').style.display = "none";
+      }
+    });
     var queryInput = el.querySelector('[name="queryInput"]');
     var edgeOutput = el.querySelector('[name="edgeOutput"]');
     var edgeHeaders = el.querySelector('[name="edgeHeaders"]');
-    edgeOutput.value = "";
-    edgeHeaders.value = "";
     var sendToEdgeButton = el.querySelector('[name=sendToEdgeButton]');
     var origOutput = el.querySelector('[name="origOutput"]');
     var origHeaders = el.querySelector('[name="origHeaders"]');
-    origOutput.value = "";
-    origHeaders.value = "";
     var sendToOrigButton = el.querySelector('[name=sendToOrigButton]');
   
+  	var queryEdit = CodeMirror.fromTextArea(queryInput, {
+		  lineNumbers : true
+	  });
+		var origOutputEdit = CodeMirror.fromTextArea(origOutput, {
+			lineNumbers : false
+		});
+		var edgeOutputEdit = CodeMirror.fromTextArea(edgeOutput, {
+			lineNumbers : false
+		});
+    origOutputEdit.getDoc().setValue("");
+    edgeOutputEdit.getDoc().setValue("");
+
     sendToOrigButton.addEventListener('click', function() {
       origOutput.classList.remove('success');
 
@@ -44,7 +61,7 @@ window.addEventListener('load', function() {
         if (xhr.readyState === 4) {
           var obj = JSON.parse(xhr.responseText);
           var pretty = JSON.stringify(obj, undefined, 4);
-          origOutput.value = pretty;
+					origOutputEdit.getDoc().setValue(pretty);
           origOutput.classList.add('success');
         }
         origHeaders.value = "Time elapsed: " +  (window.performance.now() - before);
@@ -59,13 +76,12 @@ window.addEventListener('load', function() {
       const before = window.performance.now();
       xhr.open('POST', window.location.protocol + "//" + window.location.host + "/graphql");
       xhr.setRequestHeader("Content-Type", "application/json");
-
       xhr.addEventListener('readystatechange', function() {
 
         if (xhr.readyState === 4) {
           var obj = JSON.parse(xhr.responseText);
           var pretty = JSON.stringify(obj, undefined, 4);
-          edgeOutput.value = pretty;
+					edgeOutputEdit.getDoc().setValue(pretty);
           edgeOutput.classList.add('success');
         }
         edgeHeaders.value = "Time elapsed : " +  (window.performance.now() - before);
@@ -92,16 +108,15 @@ window.addEventListener('load', function() {
 </div>
 
 <div class="main-body-container">
-
   <div name="sample" class="main">
-
-    <div class="example-title">
-      Id 1
+    <div class="title" name="title">
+      <u>Query 1</u>
     </div>
+		<div name="toggle" class="main">
+			<div class="input">
+				<div class="sample-title">Query+Variables</div>
+				<textarea name="queryInput" rows="15">
 
-    <div class="input">
-      <div class="sample-title">Query+Variables</div>
-      <textarea name="queryInput" rows="15">
 query {
   product(id:10)
   {
@@ -115,50 +130,43 @@ query {
     }
   }
 }
-      </textarea>
-
-    </div>
 
 
-    <div class="output" >
-      <div class="sample-title">Origin Response</div>
-      <textarea name="origOutput" rows="15"></textarea>
-    </div>
-
-
-    <div class="output" >
-      <div class="sample-title">Edge Response</div>
-      <textarea name="edgeOutput" rows="15"></textarea>
-    </div>
-
-    <div class="input" >
-      <textarea name="varibaleInput" rows="5"></textarea>
-    </div>
-
-    <div class="output" >
-      <textarea name="origHeaders" rows="5"></textarea>
-				<button name="sendToOrigButton">Send To Orig</button>
-    </div>
-
-    <div class="output" >
-      <textarea name="edgeHeaders" rows="5"></textarea>
-				<button name="sendToEdgeButton">Send To Edge</button>
-    </div>
-  </div>
-</div>
-
-
-<div class="main-body-container">
-
+				</textarea>
+			</div>
+			<div class="output" >
+				<div class="sample-title">Origin Response</div>
+				<textarea name="origOutput" rows="15"></textarea>
+			</div>
+			<div class="output" >
+				<div class="sample-title">Edge Response</div>
+				<textarea name="edgeOutput" rows="15"></textarea>
+			</div>
+			<div class="input" >
+				<textarea name="varibaleInput" rows="5"></textarea>
+			</div>
+			<div class="output" >
+				<textarea name="origHeaders" rows="5"></textarea>
+					<button name="sendToOrigButton">Send To Orig</button>
+			</div>
+			<div class="output" >
+					<textarea name="edgeHeaders" rows="5"></textarea>
+					<button name="sendToEdgeButton">Send To Edge</button>
+			</div>
+		</div>
+	</div>
+  </br>
+  </br>
+  </br>
   <div name="sample" class="main">
-
-    <div class="example-title">
-      Id 1
+    <div class="title" name="title">
+      <u>Query 2</u>
     </div>
+    <div name="toggle" class="main">
+      <div class="input">
+        <div class="sample-title">Query+Variables</div>
+        <textarea name="queryInput" rows="15">
 
-    <div class="input">
-      <div class="sample-title">Query+Variables</div>
-      <textarea name="queryInput" rows="15">
 query {
   product(id:10)
   {
@@ -172,37 +180,35 @@ query {
     }
   }
 }
-      </textarea>
-
-    </div>
 
 
-    <div class="output" >
-      <div class="sample-title">Origin Response</div>
-      <textarea name="origOutput" rows="15"></textarea>
-    </div>
-
-
-    <div class="output" >
-      <div class="sample-title">Edge Response</div>
-      <textarea name="edgeOutput" rows="15"></textarea>
-    </div>
-
-    <div class="input" >
-      <textarea name="varibaleInput" rows="5"></textarea>
-    </div>
-
-    <div class="output" >
-      <textarea name="origHeaders" rows="5"></textarea>
-        <button name="sendToOrigButton">Send To Orig</button>
-    </div>
-
-    <div class="output" >
-      <textarea name="edgeHeaders" rows="5"></textarea>
-        <button name="sendToEdgeButton">Send To Edge</button>
+        </textarea>
+      </div>
+      <div class="output" >
+        <div class="sample-title">Origin Response</div>
+        <textarea name="origOutput" rows="15"></textarea>
+      </div>
+      <div class="output" >
+        <div class="sample-title">Edge Response</div>
+        <textarea name="edgeOutput" rows="15"></textarea>
+      </div>
+      <div class="input" >
+        <textarea name="varibaleInput" rows="5"></textarea>
+      </div>
+      <div class="output" >
+        <textarea name="origHeaders" rows="5"></textarea>
+          <button name="sendToOrigButton">Send To Orig</button>
+      </div>
+      <div class="output" >
+          <textarea name="edgeHeaders" rows="5"></textarea>
+          <button name="sendToEdgeButton">Send To Edge</button>
+      </div>
     </div>
   </div>
+
+
 </div>
+
 
 
 </body></html>
