@@ -12,6 +12,9 @@
     "test": "mocha -R spec test"
   },
   "dependencies": {
+    "apollo-cache-inmemory": "^1.4.2",
+    "apollo-client": "^2.4.12",
+    "apollo-link-http": "^1.5.9",
     "apollo-server-express": "^2.3.1",
     "async": "^2.5.0",
     "browser-resolve": "^1.11.3",
@@ -21,6 +24,8 @@
     "cors": "^2.8.1",
     "ejs": "^2.0.8",
     "esmify": "^2.0.0",
+    "graphql": "^14.1.1",
+    "graphql-tag": "^2.10.1",
     "loopback": "^3.0.0",
     "loopback-boot": "^2.12.1",
     "loopback-component-explorer": "^5.1.0",

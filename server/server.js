@@ -407,14 +407,20 @@ class Category {
 const resolvers = {
 	Query: {
 		product: (parent, { id }) => {
+       var waitTill = new Date(new Date().getTime() + 500);
+			 while(waitTill > new Date()){}
 			return new Product(db.products.find(product => product.id === id));
 		},
 		products : () => {
+       var waitTill = new Date(new Date().getTime() + 500);
+			 while(waitTill > new Date()){}
 			return db
 				.products
 				.map(product => new Product(product));
 		},
 		productsOfBrand: (parent, { brand }) => {
+       var waitTill = new Date(new Date().getTime() + 500);
+			 while(waitTill > new Date()){}
 			 let brandObj = db.brands.filter((br) => { 
 					 return (br.name == brand); 
 				});
@@ -424,6 +430,8 @@ const resolvers = {
 		   return products.map(product => new Product(product));
 		},
 		productsOfCategory: (parent, { category }) => {
+       var waitTill = new Date(new Date().getTime() + 500);
+			 while(waitTill > new Date()){}
 			 let catObj = db.categories.filter((cat) => { 
 					 return (cat.name == category); 
 				});
@@ -433,6 +441,8 @@ const resolvers = {
 		   return products.map(product => new Product(product));
 		},
 		productsOfBrandAndCategory: (parent, { category, brand }) => {
+       var waitTill = new Date(new Date().getTime() + 500);
+			 while(waitTill > new Date()){}
 			 let brandObj = db.brands.filter((br) => { 
 					 return (br.name == brand); 
 				});
@@ -445,16 +455,22 @@ const resolvers = {
 		   return products.map(product => new Product(product));
 		},
 		brands : () => {
+       var waitTill = new Date(new Date().getTime() + 500);
+			 while(waitTill > new Date()){}
 			return db
 				.brands
 				.map(brand => new Brand(brand));
 		},
 		categories : () => {
+       var waitTill = new Date(new Date().getTime() + 500);
+			 while(waitTill > new Date()){}
 			return db
 				.categories
 				.map(category => new Category(category));
 		},
 		brand: (parent, { id })  =>{
+       var waitTill = new Date(new Date().getTime() + 500);
+			 while(waitTill > new Date()){}
 			const brand = db
 				.brands
 				.find(brand => brand.id === id);
@@ -462,6 +478,8 @@ const resolvers = {
 			return new Brand(brand);
 		},
 		category: (parent, { id })  =>{
+       var waitTill = new Date(new Date().getTime() + 500);
+			 while(waitTill > new Date()){}
 			const category = db
 				.categories
 				.find(category => category.id === id);

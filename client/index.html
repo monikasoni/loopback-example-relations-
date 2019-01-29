@@ -15,6 +15,12 @@
 
 window.addEventListener('load', function() {
 
+  var origHostNameInput;
+  var edgeHostNameInput;
+  [].slice.call(document.querySelectorAll('[name="hostnames"]')).forEach(function(el) {
+    origHostNameInput = el.querySelector('[name="origHostNameInput"]');
+    edgeHostNameInput = el.querySelector('[name="edgeHostNameInput"]');
+  });
   [].slice.call(document.querySelectorAll('[name="sample"]')).forEach(function(el) {
 
     var title = el.querySelector('[name="title"]');
@@ -46,9 +52,9 @@ window.addEventListener('load', function() {
     varEdit.setSize(null, "100px");
 		var origOutputEdit = CodeMirror.fromTextArea(origOutput, {mode: { name: "javascript", json: true },});
 		var edgeOutputEdit = CodeMirror.fromTextArea(edgeOutput, {mode: { name: "javascript", json: true },});
-		var origHeadersEdit = CodeMirror.fromTextArea(origHeaders, {mode: { name: "javascript", json: true },});
+		var origHeadersEdit = CodeMirror.fromTextArea(origHeaders, {mode: { name: "javascript", json: true }, lineWrapping: true});
     origHeadersEdit.setSize(null, "100px");
-		var edgeHeadersEdit = CodeMirror.fromTextArea(edgeHeaders, {mode: { name: "javascript", json: true },});
+		var edgeHeadersEdit = CodeMirror.fromTextArea(edgeHeaders, {mode: { name: "javascript", json: true }, lineWrapping: true});
     edgeHeadersEdit.setSize(null, "100px");
 
     origOutputEdit.getDoc().setValue("");
@@ -59,8 +65,10 @@ window.addEventListener('load', function() {
 
       var xhr = new XMLHttpRequest();
       const before = window.performance.now();
-      xhr.open('POST', window.location.protocol + "//" + window.location.host + "/graphql");
+      xhr.open('POST', window.location.protocol + "//" + origHostNameInput.value + "/graphql");
+      //xhr.open('POST', window.location.protocol + "//" + window.location.host + "/graphql");
       xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.setRequestHeader("Pragma", "akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-get-request-id");
 
       xhr.addEventListener('readystatechange', function() {
 
@@ -73,7 +81,7 @@ window.addEventListener('load', function() {
         var value = "Time elapsed: " +  (window.performance.now() - before);
         origHeadersEdit.getDoc().setValue(value);
       });
-      xhr.send("{\"query\" : " + JSON.stringify(queryInput.value) + ", \"variables\" : " + JSON.stringify(varInput.value) +  "}");
+      xhr.send("{\"query\" : " + JSON.stringify(queryInput.value) + ", \"variables\" : " + varInput.value +  "}");
     });
 
     sendToEdgeButton.addEventListener('click', function() {
@@ -81,8 +89,9 @@ window.addEventListener('load', function() {
 
       var xhr = new XMLHttpRequest();
       const before = window.performance.now();
-      xhr.open('POST', window.location.protocol + "//" + window.location.host + "/graphql");
+      xhr.open('POST', window.location.protocol + "//" + edgeHostNameInput.value + "/graphql");
       xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.setRequestHeader("Pragma", "akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-get-request-id");
       xhr.addEventListener('readystatechange', function() {
 
         if (xhr.readyState === 4) {
@@ -92,12 +101,12 @@ window.addEventListener('load', function() {
           edgeOutput.classList.add('success');
         }
         var value = "Time elapsed : " +  (window.performance.now() - before);
-        value += "\nCache Key : " + xhr.getResponseHeader("content-type")
-        value += "\nCache Status : " + xhr.getResponseHeader("content-type");
+        value +=  "\nStatus       : \"" + xhr.getResponseHeader("X-Cache").split(" ")[0] + "\"";
+        value +=  "\nCache Key    : " + xhr.getResponseHeader("X-Cache-Key").replace(/_gql=(.*)/g, "\"$&\"");
         edgeHeadersEdit.getDoc().setValue(value);
 
       });
-      xhr.send("{\"query\" : " + JSON.stringify(queryInput.value) + ", \"variables\" : " + JSON.stringify(varInput.value) + "}");
+      xhr.send("{\"query\" : " + JSON.stringify(queryInput.value) + ", \"variables\" : " + varInput.value + "}");
     });
 
     queryInput.addEventListener('focus', function() {
@@ -111,8 +120,13 @@ window.addEventListener('load', function() {
 
 </script>
 
-<div class="top-header">
+<div class="top-header" name="hostnames">
   <h5>GraphQL Playground</h5>
+    <font size="3">Server</font> 
+		<input type="text" name="origHostNameInput" value="198.18.86.158:8080">
+    </br>
+    <font size="3">Edge</font> 
+		<input type="text" name="edgeHostNameInput" value="gql.demo.akamai.com">
 </div>
 
 <div class="main-body-container">
@@ -275,7 +289,7 @@ query queryWithVar(
   </br>
   <div name="sample" class="main">
     <div class="title" name="title">
-      <u>Query 3</u>
+      <u>Query 4</u>
     </div>
     <div name="toggle" class="main">
       <div class="input">
@@ -329,7 +343,7 @@ query queryWithVar(
   </br>
   <div name="sample" class="main">
     <div class="title" name="title">
-      <u>Query 4</u>
+      <u>Query 5</u>
     </div>
     <div name="toggle" class="main">
       <div class="input">
@@ -355,54 +369,6 @@ query queryWithVar {
       <div class="input" >
         <textarea name="varibaleInput" rows="5">
 {
-}
-        </textarea>
-      </div>
-      <div class="output" >
-        <textarea name="origHeaders" rows="5"></textarea>
-          <button name="sendToOrigButton">Send To Orig</button>
-      </div>
-      <div class="output" >
-          <textarea name="edgeHeaders" rows="5"></textarea>
-          <button name="sendToEdgeButton">Send To Edge</button>
-      </div>
-    </div>
-  </div>
-
-
-  </br>
-  </br>
-  </br>
-  <div name="sample" class="main">
-    <div class="title" name="title">
-      <u>Query 5</u>
-    </div>
-    <div name="toggle" class="main">
-      <div class="input">
-        <div class="sample-title">Query+Variables</div>
-        <textarea name="queryInput" rows="15">
-
-query queryWithVar($val :Boolean!) {
-  products {
-    name
-    userguide @skip(if:$val)
-  }
-}
-
-        </textarea>
-      </div>
-      <div class="output" >
-        <div class="sample-title">Origin Response</div>
-        <textarea name="origOutput" rows="15"></textarea>
-      </div>
-      <div class="output" >
-        <div class="sample-title">Edge Response</div>
-        <textarea name="edgeOutput" rows="15"></textarea>
-      </div>
-      <div class="input" >
-        <textarea name="varibaleInput" rows="5">
-{
-  "val": true
 }
         </textarea>
       </div>
@@ -429,26 +395,14 @@ query queryWithVar($val :Boolean!) {
       <div class="input">
         <div class="sample-title">Query+Variables</div>
         <textarea name="queryInput" rows="15">
-query queryWithVar {
+
+query {
   products {
-    name,
-    id,
-    category {
-    	... categories
-    }
-    brand {
-	    ... brands
-    }
+    name
+    userguide @skip(if:true)
   }
 }
-fragment categories on Category {
-  id,
-  name
-}
-fragment brands on Brand {
-  id,
-  name
-}
+
         </textarea>
       </div>
       <div class="output" >
@@ -483,6 +437,65 @@ fragment brands on Brand {
   <div name="sample" class="main">
     <div class="title" name="title">
       <u>Query 7</u>
+    </div>
+    <div name="toggle" class="main">
+      <div class="input">
+        <div class="sample-title">Query+Variables</div>
+        <textarea name="queryInput" rows="15">
+query queryWithVar {
+  products {
+    name,
+    id,
+    category {
+    	... categories
+    }
+    brand {
+	    ... brands
+    }
+  }
+}
+fragment brands on Brand {
+  id,
+  name
+}
+fragment categories on Category {
+  id,
+  name
+}
+        </textarea>
+      </div>
+      <div class="output" >
+        <div class="sample-title">Origin Response</div>
+        <textarea name="origOutput" rows="15"></textarea>
+      </div>
+      <div class="output" >
+        <div class="sample-title">Edge Response</div>
+        <textarea name="edgeOutput" rows="15"></textarea>
+      </div>
+      <div class="input" >
+        <textarea name="varibaleInput" rows="5">
+{
+}
+        </textarea>
+      </div>
+      <div class="output" >
+        <textarea name="origHeaders" rows="5"></textarea>
+          <button name="sendToOrigButton">Send To Orig</button>
+      </div>
+      <div class="output" >
+          <textarea name="edgeHeaders" rows="5"></textarea>
+          <button name="sendToEdgeButton">Send To Edge</button>
+      </div>
+    </div>
+  </div>
+
+
+  </br>
+  </br>
+  </br>
+  <div name="sample" class="main">
+    <div class="title" name="title">
+      <u>Query 8</u>
     </div>
     <div name="toggle" class="main">
       <div class="input">

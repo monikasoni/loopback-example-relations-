@@ -6,7 +6,10 @@
     "compression": {},
     "cors": {
       "params": {
-        "origin": true,
+        "optionsSuccessStatus": 204,
+        "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+        "exposedHeaders" : ["X-Cache", "X-Cache-Key"],
+        "origin": "*",
         "credentials": true,
         "maxAge": 86400
       }
