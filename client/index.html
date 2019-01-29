@@ -44,11 +44,11 @@ window.addEventListener('load', function() {
 		  lineNumbers : true,
 	  });
     varEdit.setSize(null, "100px");
-		var origOutputEdit = CodeMirror.fromTextArea(origOutput, {});
-		var edgeOutputEdit = CodeMirror.fromTextArea(edgeOutput, {});
-		var origHeadersEdit = CodeMirror.fromTextArea(origHeaders, {});
+		var origOutputEdit = CodeMirror.fromTextArea(origOutput, {mode: { name: "javascript", json: true },});
+		var edgeOutputEdit = CodeMirror.fromTextArea(edgeOutput, {mode: { name: "javascript", json: true },});
+		var origHeadersEdit = CodeMirror.fromTextArea(origHeaders, {mode: { name: "javascript", json: true },});
     origHeadersEdit.setSize(null, "100px");
-		var edgeHeadersEdit = CodeMirror.fromTextArea(edgeHeaders, {});
+		var edgeHeadersEdit = CodeMirror.fromTextArea(edgeHeaders, {mode: { name: "javascript", json: true },});
     edgeHeadersEdit.setSize(null, "100px");
 
     origOutputEdit.getDoc().setValue("");
